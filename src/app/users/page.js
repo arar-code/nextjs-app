@@ -61,7 +61,7 @@ export default function UsersPage() {
 
       {/* Modal for selected user */}
       {selectedUser && (
-        <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 modal-overlay flex items-center justify-center z-50 px-4">
           <div className="bg-white rounded-lg shadow-2xl w-full max-w-2xl p-6 relative max-h-[80vh] overflow-y-auto">
             <button
               className="absolute top-2 right-2 text-gray-600 hover:text-gray-900"
@@ -74,7 +74,6 @@ export default function UsersPage() {
             <p className="mb-4 text-gray-700">
               Address: {selectedUser.address.street}, {selectedUser.address.city}
             </p>
-            {/* Embed Google Maps iframe */}
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2">Location</h3>
               <iframe
