@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { GoogleMap, LoadScript, Autocomplete } from '@react-google-maps/api';
+import { LoadScript, Autocomplete } from '@react-google-maps/api';
 
 export default function AuthPage() {
   const [isRegistering, setIsRegistering] = useState(false);
@@ -67,15 +67,9 @@ export default function AuthPage() {
     }
   };
 
-  const handleAddressChange = (address) => {
-    setFormData({ ...formData, address });
-  };
-
   return (
     <div className="px-4 py-8 sm:p-10 flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-      <div className="w-full max-w-md sm:max-w-lg p-6 sm:p-8 
-        bg-white/10 backdrop-blur-lg backdrop-saturate-150 
-        rounded-lg border border-white/30 shadow-2xl">
+      <div className="w-full max-w-md sm:max-w-lg p-6 sm:p-8 bg-white/10 backdrop-blur-lg backdrop-saturate-150 rounded-lg border border-white/30 shadow-2xl">
         <h1 className="text-2xl font-semibold text-center mb-6 text-white">
           {isRegistering ? 'Register' : 'Login'}
         </h1>
@@ -161,33 +155,26 @@ export default function AuthPage() {
             </div>
             <div>
               <label htmlFor="address" className="block text-sm font-medium text-white">Address</label>
-              {googleMapsApiKey ? (
-                <LoadScript
-                  googleMapsApiKey={googleMapsApiKey}
-                  libraries={['places']}
+              <LoadScript googleMapsApiKey={googleMapsApiKey} libraries={['places']}>
+                <Autocomplete
+                  onLoad={(autocomplete) => (window.autocomplete = autocomplete)}
+                  onPlaceChanged={() => {
+                    const place = window.autocomplete.getPlace();
+                    const fullAddress = place.formatted_address || place.name || '';
+                    setFormData({ ...formData, address: fullAddress });
+                  }}
                 >
-                  <GoogleMap
-                    mapContainerStyle={{ height: '300px', width: '100%' }}
-                    zoom={10}
-                    center={{ lat: 0, lng: 0 }}
-                  >
-                    <Autocomplete>
-                      <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                        className="border border-gray-300 p-3 w-full rounded-lg bg-white bg-opacity-80"
-                        placeholder="Select your address"
-                        onBlur={(e) => handleAddressChange(e.target.value)}
-                      />
-                    </Autocomplete>
-                  </GoogleMap>
-                </LoadScript>
-              ) : (
-                <p className="text-sm text-red-500">Map is unavailable. Please try again later.</p>
-              )}
+                  <input
+                    type="text"
+                    id="address"
+                    name="address"
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    className="border border-gray-300 p-3 w-full rounded-lg bg-white bg-opacity-80"
+                    placeholder="Select your address"
+                  />
+                </Autocomplete>
+              </LoadScript>
               {errors.address && <p className="text-red-500 text-sm">{errors.address}</p>}
             </div>
             <button type="submit" className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700 transition-colors">
