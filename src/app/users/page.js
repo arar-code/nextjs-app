@@ -72,12 +72,15 @@ export default function UsersPage() {
             <h2 className="text-2xl font-bold mb-2">{selectedUser.name} Profile</h2>
             <p className="mb-4 text-gray-700">Email: {selectedUser.email}</p>
             <p className="mb-4 text-gray-700">
-              Address: {selectedUser.address.street}, {selectedUser.address.city}
+              Address: {selectedUser.address.street}, {selectedUser.address.suite},{' '}
+              {selectedUser.address.city}, {selectedUser.address.zipcode}
             </p>
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2">Location</h3>
               <iframe
-                src={`https://www.google.com/maps?q=${selectedUser.address.lat},${selectedUser.address.lng}&z=15&output=embed`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(
+                  `${selectedUser.address.street}, ${selectedUser.address.city}, ${selectedUser.address.zipcode}`
+                )}&z=15&output=embed`}
                 width="100%"
                 height="300"
                 className="border-none rounded-lg"
