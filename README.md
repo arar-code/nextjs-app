@@ -14,11 +14,11 @@ Password: admin123
 
 Can:
 
-View all users
+View all Users
 
-View all posts
+View all Posts
 
-View all comments
+View all Comments
 
 👤 Regular User Access
 Use any valid email and username combination from the JSONPlaceholder user data
