@@ -48,3 +48,5 @@ Framework: Next.js 13+
 Styling: Tailwind CSS
 
 Data Source: JSONPlaceholder REST API
+
+pogi si arar
