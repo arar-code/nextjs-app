@@ -48,3 +48,5 @@ Framework: Next.js 13+
 Styling: Tailwind CSS
 
 Data Source: JSONPlaceholder REST API
+
+Group 10, Video Presentation Link : https://drive.google.com/file/d/1laQ5Mv1Jy_b8Q_BT-7bEYHT6xd-uiT5X/view?usp=drivesdk
